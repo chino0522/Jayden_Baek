@@ -31,7 +31,7 @@ const Projects = () => {
         }
     ]
 
-    const ProjectItem = ({ title, image, description, tech, github, youtube }: { title: string, image: string, description: string, tech: string[], github: string, youtube: string }) => {
+    const ProjectItem = ({ title, image, description, tech, github, youtube }: { title: string, image: string, description: string, tech: string[], github: string, youtube?: string }) => {
         const { ref, inView } = useInView({
             triggerOnce: false,
             threshold: 0.6  // Adjust this value based on when you want the animation to start
@@ -73,9 +73,9 @@ const Projects = () => {
                             />
                         </Link>
                     </div>
-                    {youtube === null ? null : (
+                    {youtube === undefined ? null : (
                         <div>
-                            <Link href={youtube} target='_blank'>
+                            <Link href={youtube!} target='_blank'>
                                 <Image
                                     src='/skills/YouTube.png'
                                     width={30}
@@ -94,7 +94,7 @@ const Projects = () => {
     return (
         <div className='flex w-full p-5 justify-evenly flex-wrap'>
             {projects.map((project, index) => (
-                <ProjectItem key={index} title={project.title} image={project.image} description={project.description} tech={project.tech} github={project.github} youtube={project.youtube} />
+                <ProjectItem key={index} title={project.title} image={project.image} description={project.description} tech={project.tech} github={project.github} youtube={project.youtube || undefined} />
             ))}
         </div>
     );
