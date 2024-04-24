@@ -26,7 +26,7 @@ const Projects = () => {
             image: '/projects/ZoomZoom.png',
             description: 'A top-down racing game developed in Java, accommodating multiple players and offering a controller interfaces.',
             tech: ['Java', 'MongoDB'],
-            github: 'https://zoomzoom.vercel.app/',
+            github: 'https://github.com/COMP2522/project-zoom-zoom',
             youtube: null
         }
     ]
