@@ -9,7 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.19.3",
+    "@supabase/supabase-js": "^2.42.5",
+    "express-rate-limit": "^7.2.0",
     "next": "14.2.2",
+    "nodemailer": "^6.9.13",
+    "rate-limiter-flexible": "^5.0.1",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.1.0",
@@ -17,6 +22,7 @@
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.14",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8.57.0",

@@ -16,7 +16,7 @@ export default function Profile() {
                     className='rounded-3xl'
                     alt="profile picture"
                 />
-                <div className='p-2 w-96 text-justify'>
+                <div className='p-2 my-10 w-96 text-justify'>
                     <h1 className="text-2xl font-bold my-5 text-center md:text-start">Hi, I&apos;m Jayden Baek 👋🏻</h1>
                     <p>
                         I am 19 years old and currently in my final term of the Computer Systems Technology (CST) program at BCIT (Brisith Columbia Institution of Technology).
