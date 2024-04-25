@@ -21,7 +21,7 @@ const Contact = () => {
 
     const ContactList = () => {
         return (
-            <div className='w-full p-5 flex justify-evenly items-center m-5 mt-0'>
+            <div className='w-full max-w-96 p-5 flex justify-evenly items-center m-5'>
                 <Link href="mailto:baekjinho0522@gmail.com" target="_blank">
                     <Image
                         src="/contact/Email.png"
@@ -142,12 +142,12 @@ const Contact = () => {
     }
     return (
         <div className="w-full p-5 flex flex-col justify-center items-center text-pretty">
-            <div className="text-4xl">Contact Me</div>
-            <p className='p-5 m-5 mb-0'>I&apos;m always open to discussing new opportunities to be part of your visions. Feel free to get in touch!</p>
-            <p className='m-5 text-center'>
+            <div className="text-4xl p-5">Contact Me</div>
+            <ContactList />
+            <p className='p-5 m-2'>I&apos;m always open to discussing new opportunities to be part of your visions. Feel free to get in touch!</p>
+            <p className='p-2 m-2 text-center'>
                 Checkout my <Link href="/contact/Jayden_baek_Resume.pdf" target='_blank' className='underline font-semibold hover:text-neutral-400'>resume</Link> and <Link href="/contact/Jayden_Baek_Cover_Letter.pdf" className='underline font-semibold hover:text-neutral-400' target='_blank'>cover letter</Link>!
             </p>
-            <ContactList />
             <ContactEmailForm />
             <Modal isOpen={isModalOpen} message={modalMessage} onClose={closeModal} />
         </div>
