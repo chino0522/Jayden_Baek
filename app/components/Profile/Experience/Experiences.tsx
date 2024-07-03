@@ -27,11 +27,11 @@ const Experiences = () => {
     const ExperienceItem = ({ name, image, description, tech }: ExperienceItemProps) => {
         const { ref, inView } = useInView({
             triggerOnce: false,
-            threshold: 0.6  // Adjust this value based on when you want the animation to start
+            threshold: 0.5  // Adjust this value based on when you want the animation to start
         });
 
         return (
-            <div ref={ref} className={`w-96 h-auto rounded-3xl p-5 m-5 flex flex-col text-pretty transition-opacity duration-700 ${inView ? 'opacity-100' : 'opacity-0'}`}>
+            <div ref={ref} className={`w-96 h-auto bg-gray-900 text-gray-300 rounded-3xl p-5 m-5 flex flex-col text-pretty transition-opacity duration-700 ${inView ? 'opacity-100' : 'opacity-0'}`}>
                 <h1 className='text-2xl font-bold mb-3 text-center'>{name}</h1>
                 <Image
                     src={image}
@@ -41,9 +41,9 @@ const Experiences = () => {
                     className='self-center'
                 />
                 <p>{description}</p>
-                <div className='flex flex-wrap justify-evenly p-2 md:p-0'>
+                <div className='flex flex-wrap justify-evenly p-2 md:p-0 my-6'>
                     {tech.map((tech, index) => (
-                        <div key={index} className='flex m-2 md:p-2 md:m-2 md:my-3'>
+                        <div key={index} className='flex'>
                             <Image
                                 src={`/skills/${tech}.png`}
                                 width={25}

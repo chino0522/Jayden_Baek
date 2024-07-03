@@ -1,8 +1,12 @@
+import { useEffect, useState } from 'react';
+
 const Blog = () => {
-    return <div>
-        <h1>Blog</h1>
-        <p>Welcome to my blog!</p>
+
+  return (
+    <div>
+      Coming soon...
     </div>
-}
+  );
+};
 
 export default Blog;

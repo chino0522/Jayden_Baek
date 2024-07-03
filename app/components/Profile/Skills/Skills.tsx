@@ -40,7 +40,7 @@ const Skills = () => {
 
     return (
         <div className='w-full my-10'>
-            <div className='flex flex-wrap justify-evenly'>
+            <div className='flex flex-wrap justify-evenly max-w-3xl'>
                 {skills.map((skill, index) => (
                     <SkillItem key={index} skill={skill} />
                 ))}

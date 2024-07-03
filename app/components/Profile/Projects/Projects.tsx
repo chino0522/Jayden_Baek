@@ -38,7 +38,7 @@ const Projects = () => {
         });
 
         return (
-            <div ref={ref} className={`w-96 h-auto rounded-3xl p-5 m-5 flex flex-col text-pretty transition-opacity duration-700 ${inView ? 'opacity-100' : 'opacity-0'}`}>
+            <div ref={ref} className={`w-96 h-auto rounded-3xl p-5 m-5 flex flex-col bg-gray-900 text-gray-300 text-pretty transition-opacity duration-700 ${inView ? 'opacity-100' : 'opacity-0'}`}>
                 <h1 className='text-2xl font-bold mb-3 text-center'>{title}</h1>
                 <Image
                     src={image}
@@ -51,13 +51,24 @@ const Projects = () => {
                 <div className='flex flex-wrap justify-evenly p-2 md:p-0'>
                     {tech.map((tech, index) => (
                         <div key={index} className='flex p-2'>
-                            <Image
-                                src={`/skills/${tech}.png`}
-                                width={25}
-                                height={25}
-                                alt={tech}
-                                className='p-1'
-                            />
+                            { (tech === 'Express.js' || tech === 'Next.js') ? (
+                                <Image
+                                    src={`/skills/white/${tech}.png`}
+                                    width={25}
+                                    height={25}
+                                    alt={tech}
+                                    className='p-1'
+                                />
+                            ) : (
+                                <Image
+                                    src={`/skills/${tech}.png`}
+                                    width={25}
+                                    height={25}
+                                    alt={tech}
+                                    className='p-1'
+                                />
+                            
+                            )}
                             <p>{tech}</p>
                         </div>
                     ))}

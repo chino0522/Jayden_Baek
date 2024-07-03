@@ -7,8 +7,8 @@ import Projects from './Projects/Projects';
 
 export default function Profile() {
     return (
-        <div className='m-5 p-5 w-full'>
-            <div className='my-10 w-full flex flex-wrap justify-evenly items-center'>
+        <div className='m-5 p-5 w-full flex justify-center flex-col items-center'>
+            <div className='my-10 w-4/6 flex flex-wrap justify-evenly items-center'>
                 <Image
                     src="/contact/profile.jpeg"
                     width={128}
@@ -19,7 +19,7 @@ export default function Profile() {
                 <div className='p-2 my-10 w-96 text-justify'>
                     <h1 className="text-2xl font-bold my-5 text-center md:text-start">Hi, I&apos;m Jayden Baek 👋🏻</h1>
                     <p>
-                        I am 19 years old and currently in my final term of the Computer Systems Technology (CST) program at BCIT (Brisith Columbia Institution of Technology).
+                        I am 20 years old and just graduated from the Computer Systems Technology (CST) program at BCIT. I enjoy building websites and learning system administration. Feel free to check out my work and blog posts!
                     </p>
                 </div>
             </div>
