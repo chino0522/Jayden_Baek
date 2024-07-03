@@ -13,13 +13,16 @@
     "@react-google-maps/api": "^2.19.3",
     "@supabase/supabase-js": "^2.42.5",
     "express-rate-limit": "^7.2.0",
+    "gray-matter": "^4.0.3",
     "next": "14.2.2",
     "nodemailer": "^6.9.13",
     "rate-limiter-flexible": "^5.0.1",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.1.0",
-    "react-intersection-observer": "^9.8.2"
+    "react-intersection-observer": "^9.8.2",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
