@@ -16,7 +16,7 @@ export default function Profile() {
                     className='rounded-3xl'
                     alt="profile picture"
                 />
-                <div className='p-2 my-10 w-96 text-justify'>
+                <div className='p-2 my-10 w-96'>
                     <h1 className="text-2xl font-bold my-5 text-center md:text-start">Hi, I&apos;m Jayden Baek 👋🏻</h1>
                     <p>
                         I am 20 years old and just graduated from the Computer Systems Technology (CST) program at BCIT. I enjoy building websites and learning system administration. Feel free to check out my work and blog posts!
@@ -28,7 +28,7 @@ export default function Profile() {
                 <Experiences />
             </div>
             <div>
-                <ProfileItemTitle name='Skills' />
+                <ProfileItemTitle name='Skills & Interests' />
                 <Skills />
             </div>
             <div>
@@ -36,5 +36,5 @@ export default function Profile() {
                 <Projects />
             </div>
         </div>
-    )
+    );
 }

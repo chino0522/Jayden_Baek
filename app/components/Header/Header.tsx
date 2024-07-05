@@ -28,7 +28,7 @@ const Header = () => {
     }
 
     return (
-        <div className="w-full h-auto bg-white text-center sticky top-0 z-10 flex flex-wrap content-evenly justify-evenly">
+        <div className="w-full h-full bg-white text-center sticky top-0 z-10 flex flex-wrap content-evenly justify-evenly">
             <div className="flex shrink-1 justify-evenly items-center">
                 <Link href="/"><HeaderItem itemName="Profile" pathName='/' /></Link>
                 <Link href="/blog"><HeaderItem itemName="Blog" pathName='/blog' /></Link>

@@ -29,16 +29,16 @@ const Projects = () => {
             github: 'https://github.com/COMP2522/project-zoom-zoom',
             youtube: null
         }
-    ]
+    ];
 
     const ProjectItem = ({ title, image, description, tech, github, youtube }: { title: string, image: string, description: string, tech: string[], github: string, youtube?: string }) => {
         const { ref, inView } = useInView({
             triggerOnce: false,
-            threshold: 0.6  // Adjust this value based on when you want the animation to start
+            threshold: 0.6
         });
 
         return (
-            <div ref={ref} className={`w-96 h-auto rounded-3xl p-5 m-5 flex flex-col bg-gray-900 text-gray-300 text-pretty transition-opacity duration-700 ${inView ? 'opacity-100' : 'opacity-0'}`}>
+            <div ref={ref} className={`w-72 md:w-96 h-auto rounded-3xl p-5 m-5 flex flex-col bg-gray-900 text-gray-300 text-pretty transition-opacity duration-700 ${inView ? 'opacity-100' : 'opacity-0'}`}>
                 <h1 className='text-2xl font-bold mb-3 text-center'>{title}</h1>
                 <Image
                     src={image}
@@ -51,7 +51,7 @@ const Projects = () => {
                 <div className='flex flex-wrap justify-evenly p-2 md:p-0'>
                     {tech.map((tech, index) => (
                         <div key={index} className='flex p-2'>
-                            { (tech === 'Express.js' || tech === 'Next.js') ? (
+                            {(tech === 'Express.js' || tech === 'Next.js') ? (
                                 <Image
                                     src={`/skills/white/${tech}.png`}
                                     width={25}
@@ -67,7 +67,6 @@ const Projects = () => {
                                     alt={tech}
                                     className='p-1'
                                 />
-                            
                             )}
                             <p>{tech}</p>
                         </div>
@@ -84,9 +83,9 @@ const Projects = () => {
                             />
                         </Link>
                     </div>
-                    {youtube === undefined ? null : (
+                    {youtube && (
                         <div>
-                            <Link href={youtube!} target='_blank'>
+                            <Link href={youtube} target='_blank'>
                                 <Image
                                     src='/skills/YouTube.png'
                                     width={30}
@@ -95,12 +94,11 @@ const Projects = () => {
                                 />
                             </Link>
                         </div>
-                    
-                    ) }
+                    )}
                 </div>
             </div>
         );
-    }
+    };
 
     return (
         <div className='flex w-full p-5 justify-evenly flex-wrap'>
@@ -109,7 +107,6 @@ const Projects = () => {
             ))}
         </div>
     );
-
-}
+};
 
 export default Projects;
