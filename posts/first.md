@@ -1,11 +1,11 @@
 # What is a database?
 
-Database is a tool or technology that can store information.
+#### #leetcode #interview
 
-```java
-public class Person {
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-    }
-}
+Database is a tool or application that can **store** information.
+
+Here is an example of simple query with a certain condition given.
+
+```sql
+SELECT * FROM users WHERE gender = "M";
 ```

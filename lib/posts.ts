@@ -4,7 +4,7 @@ import path from 'path';
 const postsDirectory = path.join(process.cwd(), 'posts');
 
 export function getPostFiles() {
-    return fs.readdirSync(postsDirectory);
+    return fs.readdirSync(postsDirectory).reverse();
 }
 
 export function getPostData(postIdentifier: string) {
@@ -23,15 +23,20 @@ export function getAllPostsTitleAndDate() {
 
     const titleAndDates = postFiles.map((postFile) => {
         const postSlug = postFile.replace(/\.md$/, '');
-        const postTitle = getPostData(postFile).content.split('\n')[0].replace(/# /, '');
+        const postData = getPostData(postFile);
+        const postContent = postData.content ? postData.content.split('\n') : [];
+
+        const postTitle = postContent[0] ? postContent[0].replace(/# /, '') : '';
+        const hashTags = postContent[2] ? postContent[2].replace(/#### /, '') : [];
         const postCreatedAt = (fs.statSync(path.join(postsDirectory, postFile)).birthtime).toISOString().replace(/T.*/, '');
 
         return {
             slug: postSlug,
             title: postTitle,
+            hashTags: hashTags,
             createdAt: postCreatedAt,
         }
-    })
+    });
 
     return titleAndDates;
 }

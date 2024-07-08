@@ -1,16 +1,20 @@
+'use client';
+
+import { useState } from 'react';
+import { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllPostsTitleAndDate } from '@/lib/posts';
+import SearchBar from './components/SearchBar';
+import Fuse from 'fuse.js';
 
 const PostCard = (post: PostData) => {
   return (
-    <div className='m-5 w-80'>
-      <Link key={post.slug} href={`/blog/${post.slug}`} className='m-5 p-5 w-80 h-80 rounded-lg bg-black text-gray-100 flex flex-col justify-between items-center transition-all duration-500 hover:bg-slate-800 hover:scale-105'>
-        <Image src='/posts/placeholder.png' alt='placeholder' width={320} height={240} className='p-1 rounded-md' />
-        <p className='text-lg md:text-xl font-bold p-3 text-center'>{post.title}</p>
-        <p>{post.createdAt}</p>
-      </Link>
-    </div>
+    <Link key={post.slug} href={`/blog/${post.slug}`} className='m-5 p-5 w-80 h-80 rounded-lg bg-black text-gray-100 flex flex-col justify-between items-start transition-all duration-500 hover:bg-slate-800 hover:scale-105'>
+      <Image src='/posts/placeholder.png' alt='placeholder' width={320} height={240} className='p-1 rounded-md' />
+      <p className='w-full text-lg md:text-xl font-bold p-3 text-center'>{post.title}</p>
+      <p className='w-full '>{post.hashTags}</p>
+      <p>{post.createdAt}</p>
+    </Link>
   );
 }
 
@@ -29,17 +33,37 @@ const PostList = ({ posts }: { posts: PostData[] }) => {
 
 const Blog = () => {
 
-  const posts: PostData[] = getAllPostsTitleAndDate();
+  const fetchPosts = async () => {
+    const response = await fetch('/api/posts');
+    const data = await response.json();
+    return data;
+  };
+
+  useEffect(() => {
+    fetchPosts().then((data) => {
+      setPosts(data);
+    });
+  }, []);
+  
+  const [posts, setPosts] = useState<PostData[]>([]);
+  const [query, setQuery] = useState('');
+  
+  const fuse = new Fuse(posts, {
+    keys: ['title', 'hashTags'],
+  });
+
+  const results = query ? fuse.search(query).map(result => result.item) : posts;
 
   return (
-    <div className="w-full py-10 md:p-10">
+    <div className="w-full py-10 md:p-10 flex flex-col justify-center items-center">
+      <SearchBar onSearch={setQuery} />
       <div className='hidden md:flex justify-center flex-wrap'>
-        {posts.map((post) => (
+        {results.map((post) => (
           <PostCard key={post.slug} {...post} />
         ))}
       </div>
       <div className='w-full my-10 h-auto md:hidden'>
-        <PostList posts={posts} />
+        <PostList posts={results} />
       </div>
     </div>
   );
@@ -48,6 +72,7 @@ const Blog = () => {
 interface PostData {
   slug: string;
   title: string;
+  hashTags: string;
   createdAt: string;
 }
 

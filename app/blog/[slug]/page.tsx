@@ -23,6 +23,7 @@ export default function Post({ params }: { params: Params }) {
                         h1: (props) => <h1 className="text-3xl font-bold my-4">{props.children}</h1>,
                         h2: (props) => <h2 className="text-2xl font-bold my-4">{props.children}</h2>,
                         h3: (props) => <h3 className="text-xl font-bold my-4">{props.children}</h3>,
+                        h4: (props) => <h4 className="text-lg font-bold my-5 mb-10 text-slate-400">{props.children}</h4>,
                         p: (props) => <p className="my-4">{props.children}</p>,
                         ul: (props) => <ul className="list-disc list-inside my-4">{props.children}</ul>,
                         ol: (props) => <ol className="list-decimal list-inside my-4">{props.children}</ol>,
