@@ -28,13 +28,17 @@ export function getAllPostsTitleAndDate() {
 
         const postTitle = postContent[0] ? postContent[0].replace(/# /, '') : '';
         const hashTags = postContent[2] ? postContent[2].replace(/#### /, '') : [];
-        const postCreatedAt = (fs.statSync(path.join(postsDirectory, postFile)).birthtime).toISOString().replace(/T.*/, '');
+        const postBirthTime = fs.statSync(path.join(postsDirectory, postFile)).birthtime.toISOString();
+        console.log(postBirthTime)
+        const postCreatedDate = postBirthTime.replace(/T.*/, '');
+        const postCreatedTime = null;
 
         return {
             slug: postSlug,
             title: postTitle,
             hashTags: hashTags,
-            createdAt: postCreatedAt,
+            postCreatedDate: postCreatedDate,
+            postCreatedTime: postCreatedTime,
         }
     });
 
