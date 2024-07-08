@@ -12,22 +12,34 @@ type HeaderItemProps = {
 const Header = () => {
     const [isScrollingDown, setIsScrollingDown] = useState(false);
     const [lastScrollY, setLastScrollY] = useState(0);
+    const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > lastScrollY) {
-                setIsScrollingDown(true);
-            } else {
-                setIsScrollingDown(false);
+            if (timeoutId) {
+                clearTimeout(timeoutId);
             }
-            setLastScrollY(window.scrollY);
+
+            const newTimeoutId = setTimeout(() => {
+                if (window.scrollY > lastScrollY) {
+                    setIsScrollingDown(true);
+                } else {
+                    setIsScrollingDown(false);
+                }
+                setLastScrollY(window.scrollY);
+            }, 100);
+
+            setTimeoutId(newTimeoutId);
         };
 
         window.addEventListener('scroll', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll);
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
         };
-    }, [lastScrollY]);
+    }, [lastScrollY, timeoutId]);
 
     const HeaderItem = ({ itemName, pathName }: HeaderItemProps) => {
         const currentPathname = usePathname();
