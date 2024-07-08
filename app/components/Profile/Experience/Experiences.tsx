@@ -31,7 +31,7 @@ const Experiences = () => {
     });
 
     return (
-      <div ref={ref} className={`w-72 md:w-96 h-auto bg-gray-900 text-gray-300 rounded-3xl p-5 m-5 flex flex-col text-pretty transition-opacity duration-700 ${inView ? 'opacity-100' : 'opacity-0'}`}>
+      <div ref={ref} className={`w-72 md:w-96 h-auto bg-gray-900 text-gray-300 rounded-3xl p-5 m-5 flex flex-col text-pretty transition-all hover:bg-slate-800 hover:scale-105 duration-700 ${inView ? 'opacity-100' : 'opacity-0'}`}>
         <h1 className='text-2xl font-bold mb-3 text-center'>{name}</h1>
         <Image
           src={image}

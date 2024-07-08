@@ -5,7 +5,7 @@ import { getAllPostsTitleAndDate } from '@/lib/posts';
 const PostCard = (post: PostData) => {
   return (
     <div className='m-5 w-80'>
-      <Link key={post.slug} href={`/blog/${post.slug}`} className='m-5 p-5 w-80 h-80 rounded-lg bg-black text-gray-100 flex flex-col justify-between items-center'>
+      <Link key={post.slug} href={`/blog/${post.slug}`} className='m-5 p-5 w-80 h-80 rounded-lg bg-black text-gray-100 flex flex-col justify-between items-center transition-all duration-500 hover:bg-slate-800 hover:scale-105'>
         <Image src='/posts/placeholder.png' alt='placeholder' width={320} height={240} className='p-1 rounded-md' />
         <p className='text-lg md:text-xl font-bold p-3 text-center'>{post.title}</p>
         <p>{post.createdAt}</p>
