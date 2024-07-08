@@ -58,7 +58,7 @@ const Header = () => {
     };
 
     return (
-        <div className={`w-full h-full bg-white text-center sticky top-0 z-10 flex flex-wrap content-evenly justify-evenly transition-transform duration-500 ${isScrollingDown ? '-translate-y-full' : 'translate-y-0'}`}>
+        <div className={`w-full h-full bg-white bg-opacity-95 text-center sticky top-0 z-10 flex flex-wrap content-evenly justify-evenly transition-transform duration-500 ${isScrollingDown ? '-translate-y-full' : 'translate-y-0'}`}>
             <div className="flex shrink-1 justify-evenly items-center">
                 <Link href="/"><HeaderItem itemName="Profile" pathName='/' /></Link>
                 <Link href="/blog"><HeaderItem itemName="Blog" pathName='/blog' /></Link>
