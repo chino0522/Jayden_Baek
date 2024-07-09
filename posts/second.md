@@ -8,7 +8,7 @@
 
 ### Example:
 
-![Untitled](83%20Remove%20Duplicates%20from%20Sorted%20List%20772a956d64594465bf288b2b9f951243/Untitled.png)
+![leetcode83](/posts/leetcode83.png)
 
 ```
 Input: head = [1,1,2,3,3]
