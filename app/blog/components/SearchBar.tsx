@@ -11,7 +11,7 @@ const SearchBar: FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <div className='flex justify-center items-center md:p-10 w-full'>
+    <div className='flex justify-center items-center md:pb-10 w-full'>
       <div className='md:w-1/2 p-2 mx-5 rounded-xl border border-black flex transition-all duration-500 hover:scale-105'>
         <CiSearch className='text-2xl mr-2' />
         <input

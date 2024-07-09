@@ -5,7 +5,7 @@ const postsDirectory = path.join(process.cwd(), 'posts');
 const imagesDirectory = path.join(process.cwd(), 'public');
 
 export function getPostFiles() {
-    return fs.readdirSync(postsDirectory).reverse();
+    return fs.readdirSync(postsDirectory);
 }
 
 export function getPostData(postIdentifier: string) {
@@ -36,7 +36,6 @@ export function getAllPostsTitleAndDate() {
         const hashTags = postContent[2] ? postContent[2].replace(/#### /, '') : [];
         const postBirthTime = fs.statSync(path.join(postsDirectory, postFile)).birthtime.toISOString();
         const postCreatedDate = postBirthTime.replace(/T.*/, '');
-        const postCreatedTime = null;
 
         let imageUrl = postContent.find(line => line.startsWith('!'));
         let imageBase64 = null;
@@ -58,7 +57,6 @@ export function getAllPostsTitleAndDate() {
             hashTags: hashTags,
             coverImageBase64: imageBase64,
             postCreatedDate: postCreatedDate,
-            postCreatedTime: postCreatedTime,
         }
     });
 

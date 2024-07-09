@@ -11,16 +11,12 @@ const PostCard = (post: PostData) => {
   return (
     <Link key={post.slug} href={`/blog/${post.slug}`} className='m-5 p-5 w-80 rounded-xl bg-white shadow-lg border border-neutral-50 flex flex-col justify-between items-start transition-all duration-500 hover:bg-neutral-100 hover:scale-105'>
       <div className="w-full relative pt-[100%]">
-        <div className="absolute inset-0">
-          <Image src={`data:image/png;base64,${post.coverImageBase64}`} alt='placeholder' layout='fill' objectFit='cover' className='rounded-t-xl' />
-        </div>
+        <Image src={`data:image/png;base64,${post.coverImageBase64}`} alt='placeholder' layout='fill' objectFit='cover' className='rounded-t-xl' />
       </div>
-      {/* <Image src={`data:image/png;base64,${post.coverImageBase64}`} alt='placeholder' width={320} height={240} className='p-1 rounded-md' loading='lazy' /> */}
-      <p className='w-full text-lg md:text-xl font-bold p-3 text-center'>{post.title}</p>
-      <p className='w-full'>{post.hashTags}</p>
+      <p className='w-full text-lg md:text-xl font-bold p-3 mt-2 text-center'>{post.title}</p>
+      <p className='w-full py-3'>{post.hashTags}</p>
       <div className='w-full flex justify-between'>
         <p>{post.postCreatedDate}</p>
-        <p>{post.postCreatedTime}</p>
       </div>
     </Link>
   );
@@ -83,7 +79,6 @@ interface PostData {
   hashTags: string;
   coverImageBase64: string;
   postCreatedDate: string;
-  postCreatedTime: string;
 }
 
 export default Blog;
