@@ -2,7 +2,7 @@
 
 #### #Docker #Kubernetes #SystemAdministration
 
-![Docker](/posts/docker.png)
+![Docker](/posts/what_is_a_docker/docker.png)
 
 Docker is a software platform that allows you to build, test, and deploy applications quickly.
 

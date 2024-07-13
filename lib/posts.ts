@@ -1,17 +1,42 @@
 import fs from 'fs';
 import path from 'path';
 
-const postsDirectory = path.join(process.cwd(), 'posts');
-const imagesDirectory = path.join(process.cwd(), 'public');
+const postsDirectory = path.join(process.cwd(), 'public', 'posts');
 
-export function getPostFiles() {
-    return fs.readdirSync(postsDirectory);
+// same folder as the posts directory, but for images since the image paths are idicated in the markdown files (ex. ![image](/posts/[name]/name.png))
+const imagesDirectory = path.join(process.cwd(), 'public');
+const placeholderImage = path.join(process.cwd(), 'public', 'placeholder.png');
+
+// Helper function to recursively get all files in a directory
+function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): string[] {
+    const files = fs.readdirSync(dirPath);
+
+    files.forEach((file) => {
+        const filePath = path.join(dirPath, file);
+        if (fs.statSync(filePath).isDirectory()) {
+            arrayOfFiles = getAllFiles(filePath, arrayOfFiles);
+        } else {
+            arrayOfFiles.push(filePath);
+        }
+    });
+
+    return arrayOfFiles;
 }
 
-export function getPostData(postIdentifier: string) {
-    const postSlug = postIdentifier.replace(/\.md$/, ''); // Removes the file extension
-    const filePath = path.join(postsDirectory, `${postSlug}.md`);
-    const fileContent = fs.readFileSync(filePath, 'utf-8');
+// Returns an array of file paths for all markdown files in the posts directory
+export function getPostFiles(): string[] {
+    const allFiles = getAllFiles(postsDirectory);
+    return allFiles.filter(file => file.endsWith('.md'));
+}
+
+export function getPostDataBySlug(slug: string) {
+    const postFilePath = path.join(postsDirectory, `${slug}/${slug}.md`);
+    return getPostData(postFilePath);
+}
+
+export function getPostData(postFilePath: string) {
+    const postSlug = path.basename(postFilePath, '.md');
+    const fileContent = fs.readFileSync(postFilePath, 'utf-8');
 
     return {
         slug: postSlug,
@@ -19,46 +44,56 @@ export function getPostData(postIdentifier: string) {
     };
 }
 
-function getImageBase64(imagePath: string) {
-    const imageFilePath = path.join(imagesDirectory, imagePath);
+function getImageBase64(imageFilePath: string): string {
     const imageData = fs.readFileSync(imageFilePath);
     return imageData.toString('base64');
 }
-export function getAllPostsTitleAndDate() {
+
+interface PostData {
+    slug: string;
+    title: string;
+    hashTags: string[];
+    coverImageBase64: string | null;
+    postCreatedDate: string;
+}
+
+export function getAllPostsTitleAndDate(): PostData[] {
     const postFiles = getPostFiles();
 
-    const titleAndDates = postFiles.map((postFile) => {
-        const postSlug = postFile.replace(/\.md$/, '');
+    const postMetadata: PostData[] = postFiles.map((postFile) => {
         const postData = getPostData(postFile);
         const postContent = postData.content ? postData.content.split('\n') : [];
 
+        // assuming that the first line is the title and the third line is the hashtags (must follow this format for now)
         const postTitle = postContent[0] ? postContent[0].replace(/# /, '') : '';
-        const hashTags = postContent[2] ? postContent[2].replace(/#### /, '') : [];
-        const postBirthTime = fs.statSync(path.join(postsDirectory, postFile)).birthtime.toISOString();
+        const hashTags = postContent[2] ? postContent[2].replace(/#### /, '').split(', ') : [];
+
+        // get the creation date of the post
+        const postBirthTime = fs.statSync(postFile).birthtime.toISOString();
         const postCreatedDate = postBirthTime.replace(/T.*/, '');
 
+        // get the cover image of the post if it exists
         let imageUrl = postContent.find(line => line.startsWith('!'));
-        let imageBase64 = null;
+        let imageBase64: string | null = null;
 
         if (imageUrl) {
             imageUrl = imageUrl.replace(/!\[.*\]\(/, '').replace(/\)/, '');
-            if (fs.existsSync(path.join(imagesDirectory, imageUrl))) {
-                imageBase64 = getImageBase64(imageUrl);
+            const imagePath = path.join(imagesDirectory, imageUrl);
+            if (fs.existsSync(imagePath)) {
+                imageBase64 = getImageBase64(imagePath);
             }
-        }
-
-        if (!imageBase64) {
-            imageBase64 = getImageBase64('/posts/placeholder.png');
+        } else {
+            imageBase64 = getImageBase64(placeholderImage);
         }
 
         return {
-            slug: postSlug,
+            slug: postData.slug,
             title: postTitle,
             hashTags: hashTags,
             coverImageBase64: imageBase64,
             postCreatedDate: postCreatedDate,
-        }
+        };
     });
 
-    return titleAndDates;
+    return postMetadata;
 }

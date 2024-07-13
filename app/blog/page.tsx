@@ -13,8 +13,8 @@ const PostCard = (post: PostData) => {
       <div className="w-full relative pt-[100%]">
         <Image src={`data:image/png;base64,${post.coverImageBase64}`} alt='placeholder' layout='fill' objectFit='cover' className='rounded-t-xl' />
       </div>
-      <p className='w-full text-lg md:text-xl font-bold p-3 mt-2 text-center'>{post.title}</p>
-      <p className='w-full py-3'>{post.hashTags}</p>
+      <p className='w-full text-lg md:text-xl font-bold p-2 text-center'>{post.title}</p>
+      <p className='w-full py-1'>{post.hashTags}</p>
       <div className='w-full flex justify-between'>
         <p>{post.postCreatedDate}</p>
       </div>

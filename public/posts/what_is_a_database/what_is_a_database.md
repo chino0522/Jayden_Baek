@@ -1,8 +1,8 @@
 # What is a database?
 
-#### #leetcode #interview
+#### #database #MYSQL
 
-![database](/posts/database.png)
+![database](/posts/what_is_a_database/database.png)
 
 Database is a tool or application that can **store** information.
 

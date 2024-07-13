@@ -1,3 +1,3 @@
-# What is Kubernetes?
+# What is a Kubernetes?
 
 #### #interview #systemAdministration

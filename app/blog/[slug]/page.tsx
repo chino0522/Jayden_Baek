@@ -4,11 +4,12 @@ import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { getPostData } from '@/lib/posts';
+import { getPostData, getPostDataBySlug } from '@/lib/posts';
 import { IoChevronBack } from "react-icons/io5";
 
 export default function Post({ params }: { params: Params }) {
-    const { content } = getPostData(params.slug);
+    const { content } = getPostDataBySlug(params.slug);
+    console.log(content);
     return (
         <div>
             <div className='py-5 mx-10 xl:mx-72 2xl:mx-96 cursor-pointer hidden xl:block lg:absolute lg:top-1 lg:left-0 lg:z-40'>
@@ -57,11 +58,4 @@ export default function Post({ params }: { params: Params }) {
 // Define the type for the params
 interface Params {
     slug: string;
-}
-
-// Define the type for the post data
-interface PostData {
-    id: string;
-    title: string;
-    contentHtml: string;
 }
