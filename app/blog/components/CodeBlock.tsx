@@ -2,16 +2,22 @@
 
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import React from 'react';
+import React, { useState } from 'react';
 import { FaCopy } from "react-icons/fa";
+import { IoIosCheckmark} from "react-icons/io";
 
 const CodeBlock = ({ node, inline, className, children, ...props }: any) => {
     const match = /language-(\w+)/.exec(className || '');
     const codeContent = String(children).replace(/\n$/, '');
 
+    const [copyState, setCopyState] = useState(false);
+
     const handleCopy = () => {
         navigator.clipboard.writeText(codeContent);
-        alert("Code copied to clipboard!");
+        setCopyState(true);
+        setTimeout(() => {
+            setCopyState(false);
+        }, 1500);
     };
 
     return !inline && match ? (
@@ -28,7 +34,7 @@ const CodeBlock = ({ node, inline, className, children, ...props }: any) => {
                 className="absolute top-2 right-2 bg-gray-500 transition-all duration-500 hover:scale-105 hover:bg-gray-300 text-white text-xs px-2 py-1 rounded"
                 onClick={handleCopy}
             >
-                <FaCopy />
+                {copyState ? <IoIosCheckmark /> : <FaCopy />}
             </button>
         </div>
     ) : (
