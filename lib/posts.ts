@@ -3,9 +3,6 @@ import path from 'path';
 
 const postsDirectory = path.join(process.cwd(), 'public', 'posts');
 
-// same folder as the posts directory, but for images since the image paths are idicated in the markdown files (ex. ![image](/posts/[name]/name.png))
-const placeholderImage = path.join(process.cwd(), 'public', 'placeholder.png');
-
 // Helper function to recursively get all files in a directory
 function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): string[] {
     const files = fs.readdirSync(dirPath);
@@ -28,14 +25,26 @@ export function getPostFiles(): string[] {
     return allFiles.filter(file => file.endsWith('.md'));
 }
 
-export function getPostDataBySlug(slug: string) {
+export async function getPostDataBySlug(slug: string) {
     const postFilePath = path.join(postsDirectory, `${slug}/${slug}.md`);
-    return getPostData(postFilePath);
+    return await getPostData(postFilePath);
 }
 
-export function getPostData(postFilePath: string) {
+export async function getPostData(postFilePath: string) {
     const postSlug = path.basename(postFilePath, '.md');
-    const fileContent = fs.readFileSync(postFilePath, 'utf-8');
+    const fileContent = await new Promise<string>((resolve, reject) => {
+        fs.readFile(postFilePath, 'utf-8', (err, data) => {
+            if (err) {
+                // Handle the error
+                console.error(err);
+                reject(err);
+                return;
+            }
+        
+            const fileContent = data;
+            resolve(fileContent);
+        });
+    });
 
     return {
         slug: postSlug,
@@ -43,11 +52,11 @@ export function getPostData(postFilePath: string) {
     };
 }
 
-export function getAllPostsTitleAndDate(): PostData[] {
+export async function getAllPostsTitleAndDate(): Promise<PostData[]> {
     const postFiles = getPostFiles();
 
-    const postMetadata: PostData[] = postFiles.map((postFile) => {
-        const postData = getPostData(postFile);
+    const postMetadata: PostData[] = await Promise.all(postFiles.map(async (postFile) => {
+        const postData = await getPostData(postFile);
         const postContent = postData.content ? postData.content.split('\n') : [];
 
         // assuming that the first line is the title and the third line is the hashtags (must follow this format for now)
@@ -69,10 +78,12 @@ export function getAllPostsTitleAndDate(): PostData[] {
             slug: postData.slug,
             title: postTitle,
             hashTags: hashTags,
-            coverImagePath: imageUrl ? imageUrl : placeholderImage,
+            coverImagePath: imageUrl ? imageUrl : '/placeholder.png',
             postCreatedDate: postCreatedDate,
         };
-    });
+    }));
+
+    console.log(postMetadata);
 
     return postMetadata;
 }

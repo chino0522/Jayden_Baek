@@ -3,5 +3,5 @@ import { NextResponse } from 'next/server';
 import supabase from '@/lib/supabase';
 
 export async function GET() {
-    return new NextResponse(JSON.stringify(getAllPostsTitleAndDate()));
+    return new NextResponse(JSON.stringify(await getAllPostsTitleAndDate()));
 }

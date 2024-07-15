@@ -12,8 +12,8 @@ interface Params {
     slug: string;
 }
 
-export default function Post({ params }: { params: Params }) {
-    const { content } = getPostDataBySlug(params.slug);
+export default async function Post({ params }: { params: Params }) {
+    const { content } = await getPostDataBySlug(params.slug);
 
     return (
         <div>

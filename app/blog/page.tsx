@@ -39,7 +39,6 @@ const Blog = () => {
     if (effectRan.current) return;
 
     fetchPosts().then((data) => {
-      console.log(data);
       setPosts(data);
     });
 
