@@ -51,23 +51,13 @@ const Projects = () => {
                 <div className='flex flex-wrap justify-evenly p-2 md:p-0'>
                     {tech.map((tech, index) => (
                         <div key={index} className='flex p-2'>
-                            {(tech === 'Express.js' || tech === 'Next.js') ? (
-                                <Image
-                                    src={`/skills/white/${tech}.png`}
-                                    width={25}
-                                    height={25}
-                                    alt={tech}
-                                    className='p-1'
-                                />
-                            ) : (
-                                <Image
-                                    src={`/skills/${tech}.png`}
-                                    width={25}
-                                    height={25}
-                                    alt={tech}
-                                    className='p-1'
-                                />
-                            )}
+                            <Image
+                                src={`/skills/${tech}.png`}
+                                width={25}
+                                height={25}
+                                alt={tech}
+                                className='p-1'
+                            />
                             <p>{tech}</p>
                         </div>
                     ))}
