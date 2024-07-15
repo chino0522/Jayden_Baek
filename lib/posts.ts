@@ -4,24 +4,25 @@ import path from 'path';
 const postsDirectory = path.join(process.cwd(), 'public', 'posts');
 
 // Helper function to recursively get all files in a directory
-function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): string[] {
-    const files = fs.readdirSync(dirPath);
+async function getAllFiles(dirPath: string, arrayOfFiles: string[] = []): Promise<string[]> {
+    const files = await fs.promises.readdir(dirPath);
 
-    files.forEach((file) => {
+    await Promise.all(files.map(async (file) => {
         const filePath = path.join(dirPath, file);
-        if (fs.statSync(filePath).isDirectory()) {
-            arrayOfFiles = getAllFiles(filePath, arrayOfFiles);
+        const stat = await fs.promises.stat(filePath);
+        if (stat.isDirectory()) {
+            arrayOfFiles = await getAllFiles(filePath, arrayOfFiles);
         } else {
             arrayOfFiles.push(filePath);
         }
-    });
+    }));
 
     return arrayOfFiles;
 }
 
 // Returns an array of file paths for all markdown files in the posts directory
-export function getPostFiles(): string[] {
-    const allFiles = getAllFiles(postsDirectory);
+export async function getPostFiles(): Promise<string[]> {
+    const allFiles = await getAllFiles(postsDirectory);
     return allFiles.filter(file => file.endsWith('.md'));
 }
 
@@ -40,7 +41,7 @@ export async function getPostData(postFilePath: string) {
                 reject(err);
                 return;
             }
-        
+
             const fileContent = data;
             resolve(fileContent);
         });
@@ -53,7 +54,7 @@ export async function getPostData(postFilePath: string) {
 }
 
 export async function getAllPostsTitleAndDate(): Promise<PostData[]> {
-    const postFiles = getPostFiles();
+    const postFiles = await getPostFiles();
 
     const postMetadata: PostData[] = await Promise.all(postFiles.map(async (postFile) => {
         const postData = await getPostData(postFile);

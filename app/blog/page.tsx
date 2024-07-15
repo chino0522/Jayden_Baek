@@ -39,7 +39,14 @@ const Blog = () => {
     if (effectRan.current) return;
 
     fetchPosts().then((data) => {
+      if (!data) {
+        setPosts([]);
+        return;
+      }
       setPosts(data);
+    }).catch((error) => {
+      console.error(error);
+      setPosts([]);
     });
 
     return () => {
