@@ -65,7 +65,8 @@ export async function getAllPostsTitleAndDate(): Promise<PostData[]> {
         const hashTags = postContent[2] ? postContent[2].replace(/#### /, '').split(', ').toString() : "";
 
         // get the creation date of the post
-        const postBirthTime = fs.statSync(postFile).birthtime.toISOString();
+        const stat = await fs.promises.stat(postFile);
+        const postBirthTime = stat.birthtime.toISOString();
         const postCreatedDate = postBirthTime.replace(/T.*/, '');
 
         // get the cover image of the post if it exists
