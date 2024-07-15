@@ -27,10 +27,10 @@ export default async function Post({ params }: { params: Params }) {
                     rehypePlugins={[rehypeRaw]}
                     remarkPlugins={[remarkGfm, remarkBreaks]}
                     components={{
-                        h1: ({ children }) => <h1 className="text-3xl font-bold my-6">{children}</h1>,
+                        h1: ({ children }) => <h1 className="text-3xl font-bold my-6 mb-10">{children}</h1>,
                         h2: ({ children }) => <h2 className="text-2xl font-bold my-6 mt-10">{children}</h2>,
                         h3: ({ children }) => <h3 className="text-xl font-bold my-6 mt-10 w-full text-center">{children}</h3>,
-                        h4: ({ children }) => <h4 className="text-lg font-bold my-6 mb-10 text-slate-400">{children}</h4>,
+                        h4: ({ children }) => <h4 className="text-lg font-bold my-2 text-slate-400">{children}</h4>,
                         p: ({ children }) => <p className="my-6">{children}</p>,
                         ul: ({ children }) => <ul className="list-disc list-inside my-6">{children}</ul>,
                         ol: ({ children }) => <ol className="list-decimal list-inside my-6">{children}</ol>,

@@ -60,14 +60,10 @@ export async function getAllPostsTitleAndDate(): Promise<PostData[]> {
         const postData = await getPostData(postFile);
         const postContent = postData.content ? postData.content.split('\n') : [];
 
-        // assuming that the first line is the title and the third line is the hashtags (must follow this format for now)
+        // assuming that the first line is the title, the third line is the hashtags, and the fourth line is the created date (must follow this format for now)
         const postTitle = postContent[0] ? postContent[0].replace(/# /, '') : '';
         const hashTags = postContent[2] ? postContent[2].replace(/#### /, '').split(', ').toString() : "";
-
-        // get the creation date of the post
-        const stat = await fs.promises.stat(postFile);
-        const postBirthTime = stat.birthtime.toISOString();
-        const postCreatedDate = postBirthTime.replace(/T.*/, '');
+        const createdDate = postContent[3] ? postContent[3].replace(/#### /, '') : "";
 
         // get the cover image of the post if it exists
         let imageUrl = postContent.find(line => line.startsWith('!'));
@@ -81,7 +77,7 @@ export async function getAllPostsTitleAndDate(): Promise<PostData[]> {
             title: postTitle,
             hashTags: hashTags,
             coverImagePath: imageUrl ? imageUrl : '/placeholder.png',
-            postCreatedDate: postCreatedDate,
+            postCreatedDate: createdDate,
         };
     }));
 
