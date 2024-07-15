@@ -48,7 +48,7 @@ const Skills = () => {
     });
 
     return (
-      <div ref={ref} className={`flex flex-col items-center m-2 p-2 rounded-3xl w-24 md:w-32 transition-opacity duration-700 ${inView ? 'opacity-100' : 'opacity-0'}`}>
+      <div ref={ref} className={`flex flex-col items-center m-2 p-2 rounded-3xl w-24 md:w-32 transition-opacity duration-700 ${inView ? 'opacity-100' : 'opacity-20'}`}>
         <Image
           src={`/skills/${skill}.png`}
           width={50}

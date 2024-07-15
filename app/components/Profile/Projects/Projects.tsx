@@ -38,7 +38,7 @@ const Projects = () => {
         });
 
         return (
-            <div ref={ref} className={`w-72 md:w-96 h-auto rounded-3xl p-5 m-5 flex flex-col bg-gray-900 text-gray-300 text-pretty transition-all hover:bg-slate-800 hover:scale-105 duration-700 ${inView ? 'opacity-100' : 'opacity-0'}`}>
+            <div ref={ref} className={`w-72 md:w-96 h-auto p-5 m-5 flex flex-col rounded-xl bg-white shadow-lg border border-neutral-50 text-pretty transition-all hover:bg-neutral-100 hover:scale-105 duration-700 ${inView ? 'opacity-100' : 'opacity-20'}`}>
                 <h1 className='text-2xl font-bold mb-3 text-center'>{title}</h1>
                 <Image
                     src={image}
