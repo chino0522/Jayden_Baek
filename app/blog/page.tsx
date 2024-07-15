@@ -1,26 +1,11 @@
 'use client';
 
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import PostCard from './components/PostCard';
 import Link from 'next/link';
-import Image from 'next/image';
 import SearchBar from './components/SearchBar';
 import Fuse from 'fuse.js';
 
-const PostCard = (post: PostData) => {
-  return (
-    <Link key={post.slug} href={`/blog/${post.slug}`} className='m-5 p-5 w-80 rounded-xl bg-white shadow-lg border border-neutral-50 flex flex-col justify-between items-start transition-all duration-500 hover:bg-neutral-100 hover:scale-105'>
-      <div className="w-full relative pt-[100%]">
-        <Image src={`data:image/png;base64,${post.coverImageBase64}`} alt='placeholder' layout='fill' objectFit='cover' className='rounded-t-xl' />
-      </div>
-      <p className='w-full text-lg md:text-xl font-bold p-2 text-center'>{post.title}</p>
-      <p className='w-full py-1'>{post.hashTags}</p>
-      <div className='w-full flex justify-between'>
-        <p>{post.postCreatedDate}</p>
-      </div>
-    </Link>
-  );
-}
 
 const PostList = ({ posts }: { posts: PostData[] }) => {
   return (
@@ -37,6 +22,11 @@ const PostList = ({ posts }: { posts: PostData[] }) => {
 
 const Blog = () => {
 
+  const effectRan = useRef(false);
+
+  const [posts, setPosts] = useState<PostData[]>([]);
+  const [query, setQuery] = useState('');
+
   const fetchPosts = async () => {
     const response = await fetch('/api/posts');
     const data = await response.json();
@@ -44,13 +34,19 @@ const Blog = () => {
   };
 
   useEffect(() => {
+
+    // Prevents useEffect twice due to StrictMode
+    if (effectRan.current) return;
+
     fetchPosts().then((data) => {
+      console.log(data);
       setPosts(data);
     });
-  }, []);
 
-  const [posts, setPosts] = useState<PostData[]>([]);
-  const [query, setQuery] = useState('');
+    return () => {
+      effectRan.current = true;
+    }
+  }, []);
 
   const fuse = new Fuse(posts, {
     keys: ['title', 'hashTags'],
@@ -77,7 +73,7 @@ interface PostData {
   slug: string;
   title: string;
   hashTags: string;
-  coverImageBase64: string;
+  coverImagePath: string;
   postCreatedDate: string;
 }
 
