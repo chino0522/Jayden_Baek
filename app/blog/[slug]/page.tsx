@@ -22,7 +22,7 @@ export default async function Post({ params }: { params: Params }) {
                     <IoChevronBack className='text-lg md:text-2xl' /> posts
                 </Link>
             </div>
-            <div className="w-full p-10 md:px-40 xl:px-72 2xl:px-96">
+            <div className="w-full py-10 px-5 md:px-40 xl:px-72 2xl:px-96">
                 <ReactMarkdown
                     rehypePlugins={[rehypeRaw]}
                     remarkPlugins={[remarkGfm, remarkBreaks]}

@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import PostCard from './components/PostCard';
 import Link from 'next/link';
 import SearchBar from './components/SearchBar';
+import PostCard from './components/PostCard';
 import Fuse from 'fuse.js';
 
 
