@@ -4,7 +4,6 @@ import path from 'path';
 const postsDirectory = path.join(process.cwd(), 'public', 'posts');
 
 // same folder as the posts directory, but for images since the image paths are idicated in the markdown files (ex. ![image](/posts/[name]/name.png))
-const imagesDirectory = path.join(process.cwd(), 'public');
 const placeholderImage = path.join(process.cwd(), 'public', 'placeholder.png');
 
 // Helper function to recursively get all files in a directory
@@ -44,19 +43,6 @@ export function getPostData(postFilePath: string) {
     };
 }
 
-function getImageBase64(imageFilePath: string): string {
-    const imageData = fs.readFileSync(imageFilePath);
-    return imageData.toString('base64');
-}
-
-interface PostData {
-    slug: string;
-    title: string;
-    hashTags: string[];
-    coverImageBase64: string | null;
-    postCreatedDate: string;
-}
-
 export function getAllPostsTitleAndDate(): PostData[] {
     const postFiles = getPostFiles();
 
@@ -66,7 +52,7 @@ export function getAllPostsTitleAndDate(): PostData[] {
 
         // assuming that the first line is the title and the third line is the hashtags (must follow this format for now)
         const postTitle = postContent[0] ? postContent[0].replace(/# /, '') : '';
-        const hashTags = postContent[2] ? postContent[2].replace(/#### /, '').split(', ') : [];
+        const hashTags = postContent[2] ? postContent[2].replace(/#### /, '').split(', ').toString() : "";
 
         // get the creation date of the post
         const postBirthTime = fs.statSync(postFile).birthtime.toISOString();
@@ -74,26 +60,27 @@ export function getAllPostsTitleAndDate(): PostData[] {
 
         // get the cover image of the post if it exists
         let imageUrl = postContent.find(line => line.startsWith('!'));
-        let imageBase64: string | null = null;
 
         if (imageUrl) {
             imageUrl = imageUrl.replace(/!\[.*\]\(/, '').replace(/\)/, '');
-            const imagePath = path.join(imagesDirectory, imageUrl);
-            if (fs.existsSync(imagePath)) {
-                imageBase64 = getImageBase64(imagePath);
-            }
-        } else {
-            imageBase64 = getImageBase64(placeholderImage);
         }
 
         return {
             slug: postData.slug,
             title: postTitle,
             hashTags: hashTags,
-            coverImageBase64: imageBase64,
+            coverImagePath: imageUrl ? imageUrl : placeholderImage,
             postCreatedDate: postCreatedDate,
         };
     });
 
     return postMetadata;
+}
+
+interface PostData {
+    slug: string;
+    title: string;
+    hashTags: string;
+    coverImagePath: string | null;
+    postCreatedDate: string;
 }
