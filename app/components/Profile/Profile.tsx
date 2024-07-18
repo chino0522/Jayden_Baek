@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import ProfileItemTitle from './components/ProfileItemTitle';
+import ProfileItemTitle from './ProfileItemTitle';
 import Skills from './Skills/Skills';
 import Experiences from './Experience/Experiences';
 import Projects from './Projects/Projects';

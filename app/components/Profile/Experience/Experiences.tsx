@@ -43,7 +43,7 @@ const Experiences = () => {
         <p>{description}</p>
         <div className='flex flex-wrap justify-evenly p-2 md:p-0 my-6'>
           {tech.map((tech, index) => (
-            <div key={index} className='flex'>
+            <div key={index} className='flex p-2'>
               <Image
                 src={`/skills/${tech}.png`}
                 width={25}
