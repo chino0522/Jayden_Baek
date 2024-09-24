@@ -19,7 +19,7 @@ const Experiences = () => {
     {
       name: 'Community of Guardians',
       image: '/profile/CoGs.png',
-      description: 'Community of Guardians is a non-profit organization that aims to provide a safe and inclusive space for people to connect and support each other. I am currently volunteering as a full-stack software developer for the organization.',
+      description: 'Community of Guardians is a non-profit organization that aims to provide a safe and inclusive space for people to connect and support each other. I volunteered as a full-stack software developer for the organization.',
       tech: ['React.js', 'Strapi', 'Firebase']
     }
   ];
