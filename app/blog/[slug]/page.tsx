@@ -37,7 +37,7 @@ export default async function Post({ params }: { params: Params }) {
                         li: ({ children }) => <li className="ml-4 my-6">{children}</li>,
                         table: ({ children }) => (
                             <div className="overflow-x-auto">
-                                <table className="table-auto my-6 w-full">
+                                <table className="table-auto my-6 w-full border-collapse border border-gray-300">
                                     {children}
                                 </table>
                             </div>
@@ -45,18 +45,18 @@ export default async function Post({ params }: { params: Params }) {
                         thead: ({ children }) => <thead className="bg-gray-100">{children}</thead>,
                         tbody: ({ children }) => <tbody>{children}</tbody>,
                         tr: ({ children }) => {
-                            return <tr className="flex">{children}</tr>
+                            return <tr className="">{children}</tr>
                         },
                         th: ({ children }) => {
                             return (
-                                <th className="flex-1 border border-gray-300 p-2">
+                                <th className="border border-gray-300 p-2 w-1/4">
                                     {children}
                                 </th>
                             );
                         },
                         td: ({ children }) => {
                             return (
-                                <td className="flex-1 border border-gray-300 p-2 text-xs md:text-sm">
+                                <td className="border border-gray-300 p-2 text-xs md:text-sm w-1/4">
                                     {children}
                                 </td>
                             );
